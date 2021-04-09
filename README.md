@@ -1,21 +1,24 @@
-# &lt;custom-element&gt; element
+# &lt;typing-effect&gt; element
 
-Boilerplate for creating a custom element.
+A custom element that shows text as if it were being typed
 
 ## Installation
 
 ```
-$ npm install @github/custom-element-element
+$ npm install @github/typing-effect-element
 ```
 
 ## Usage
 
 ```js
-import '@github/custom-element-element'
+import '@github/typing-effect-element'
 ```
 
 ```html
-<custom-element></custom-element>
+<typing-effect data-lines='["Welcome to GitHub!", "Let’s begin the adventure"]'>
+  <span data-target="typing-effect.content"></span>
+  <span data-target="typing-effect.cursor">|</span>
+</typing-effect>
 ```
 
 ## Browser support
