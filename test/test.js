@@ -29,7 +29,7 @@ describe('typing-effect', function () {
   })
 
   describe('content typing', function () {
-    it('types a single line', function (done) {
+    it('types a single line', async function () {
       const line = 'Welcome to GitHub!'
       const container = document.createElement('div')
       container.innerHTML = `
@@ -38,16 +38,16 @@ describe('typing-effect', function () {
           <span data-target="typing-effect.cursor">|</span>
         </typing-effect>
       `
+      const typingEffectElement = container.querySelector('typing-effect')
       const contentSpan = container.querySelector('span[data-target="typing-effect.content"]')
       document.body.append(container)
 
-      setTimeout(() => {
-        assert.equal(contentSpan.textContent, line)
-        done()
-      }, 1500)
+      await once(typingEffectElement, 'typing:complete')
+
+      assert.equal(contentSpan.innerHTML, line)
     })
 
-    it('types multiple lines', function (done) {
+    it('types multiple lines', async function () {
       const lineOne = 'Welcome!'
       const lineTwo = 'Let‘s begin'
       const container = document.createElement('div')
@@ -57,13 +57,29 @@ describe('typing-effect', function () {
           <span data-target="typing-effect.cursor">|</span>
         </typing-effect>
       `
+      const typingEffectElement = container.querySelector('typing-effect')
       const contentSpan = container.querySelector('span[data-target="typing-effect.content"]')
       document.body.append(container)
 
-      setTimeout(() => {
-        assert.equal(contentSpan.innerHTML, `${lineOne}<br>${lineTwo}`)
-        done()
-      }, 1500)
+      await once(typingEffectElement, 'typing:complete')
+
+      assert.equal(contentSpan.innerHTML, `${lineOne}<br>${lineTwo}`)
+    })
+  })
+
+  describe('delay attributes', function () {
+    it('uses defaults when no delays specified', function () {
+      const typingEffectElement = document.createElement('typing-effect')
+      document.body.append(typingEffectElement)
+
+      assert.equal(typingEffectElement.characterDelay, 40)
+      assert.equal(typingEffectElement.lineDelay, 40)
     })
   })
 })
+
+function once(element, eventName) {
+  return new Promise(resolve => {
+    element.addEventListener(eventName, resolve, {once: true})
+  })
+}
