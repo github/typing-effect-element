@@ -27,4 +27,43 @@ describe('typing-effect', function () {
       assert.equal(ce.textContent, '')
     })
   })
+
+  describe('content typing', function () {
+    it('types a single line', function (done) {
+      const line = 'Welcome to GitHub!'
+      const container = document.createElement('div')
+      container.innerHTML = `
+        <typing-effect data-lines='["${line}"]'>
+          <span data-target="typing-effect.content"></span>
+          <span data-target="typing-effect.cursor">|</span>
+        </typing-effect>
+      `
+      const contentSpan = container.querySelector('span[data-target="typing-effect.content"]')
+      document.body.append(container)
+
+      setTimeout(() => {
+        assert.equal(contentSpan.textContent, line)
+        done()
+      }, 1500)
+    })
+
+    it('types multiple lines', function (done) {
+      const lineOne = 'Welcome!'
+      const lineTwo = 'Let‘s begin'
+      const container = document.createElement('div')
+      container.innerHTML = `
+        <typing-effect data-lines='["${lineOne}", "${lineTwo}"]'>
+          <span data-target="typing-effect.content"></span>
+          <span data-target="typing-effect.cursor">|</span>
+        </typing-effect>
+      `
+      const contentSpan = container.querySelector('span[data-target="typing-effect.content"]')
+      document.body.append(container)
+
+      setTimeout(() => {
+        assert.equal(contentSpan.innerHTML, `${lineOne}<br>${lineTwo}`)
+        done()
+      }, 1500)
+    })
+  })
 })

@@ -9,7 +9,7 @@ const loaded: Promise<unknown> = (function () {
 })()
 
 class TypingEffectElement extends HTMLElement {
-  async connectedCallback() {
+  async connectedCallback(): Promise<void> {
     await loaded
     if (this.content) await typeLines(this.lines, this.content, this.characterDelay, this.lineDelay)
     if (this.cursor) this.cursor.hidden = true
