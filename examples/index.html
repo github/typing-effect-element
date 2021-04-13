@@ -1,15 +1,18 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>custom-element demo</title>
-</head>
-<body>
-  <custom-element></custom-element>
+  <head>
+    <meta charset="utf-8" />
+    <title>typing-effect demo</title>
+  </head>
+  <body>
+    <typing-effect data-lines='["Welcome to GitHub!", "Let’s begin the adventure"]'>
+      <span data-target="typing-effect.content"></span>
+      <span data-target="typing-effect.cursor">|</span>
+    </typing-effect>
 
-  <script type="module">
-    // import 'https://unpkg.com/@github/custom-element-boilerplate@latest/dist/index.js'
-    import '../dist/index.js'
-  </script>
-</body>
+    <script type="module">
+      import 'https://unpkg.com/@github/typing-effect@latest/dist/index.js'
+      //import '../dist/index.js'
+    </script>
+  </body>
 </html>
