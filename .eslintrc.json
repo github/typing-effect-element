@@ -6,6 +6,7 @@
     "plugin:github/typescript"
   ],
   "globals": {
-    "CustomElementElement": "readonly"
+    "CustomElementElement": "readonly",
+    "module": true
   }
 }

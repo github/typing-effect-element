@@ -70,8 +70,30 @@ describe('typing-effect', function () {
   describe('delay attributes', function () {
     it('uses defaults when no delays specified', function () {
       const typingEffectElement = document.createElement('typing-effect')
+      typingEffectElement.setAttribute('data-reduced-motion', false)
       document.body.append(typingEffectElement)
 
+      assert.equal(typingEffectElement.characterDelay, 40)
+      assert.equal(typingEffectElement.lineDelay, 40)
+    })
+  })
+
+  describe('a11y considerations', function () {
+    it('sets delay to 0 when media query matches (prefers-reduced-motion)', function () {
+      const typingEffectElement = document.createElement('typing-effect')
+      document.body.append(typingEffectElement)
+
+      assert.equal(window.matchMedia('(prefers-reduced-motion)').matches, true)
+      assert.equal(typingEffectElement.characterDelay, 0)
+      assert.equal(typingEffectElement.lineDelay, 0)
+    })
+
+    it('uses data-reduced-motion attribute to override window media query', function () {
+      const typingEffectElement = document.createElement('typing-effect')
+      typingEffectElement.setAttribute('data-reduced-motion', false)
+      document.body.append(typingEffectElement)
+
+      assert.equal(window.matchMedia('(prefers-reduced-motion)').matches, true)
       assert.equal(typingEffectElement.characterDelay, 40)
       assert.equal(typingEffectElement.lineDelay, 40)
     })

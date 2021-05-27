@@ -39,7 +39,18 @@ class TypingEffectElement extends HTMLElement {
     }
   }
 
+  get prefersReducedMotion(): boolean {
+    if (this.getAttribute('data-reduced-motion') === 'false') {
+      return false
+    } else {
+      return window.matchMedia('(prefers-reduced-motion)').matches
+    }
+  }
+
   get characterDelay(): number {
+    if (this.prefersReducedMotion) {
+      return 0
+    }
     return Math.max(Math.min(0, Math.floor(Number(this.getAttribute('data-character-delay'))), 2_147_483_647)) || 40
   }
 
@@ -51,6 +62,9 @@ class TypingEffectElement extends HTMLElement {
   }
 
   get lineDelay(): number {
+    if (this.prefersReducedMotion) {
+      return 0
+    }
     return Math.max(Math.min(0, Math.floor(Number(this.getAttribute('data-line-delay'))), 2_147_483_647)) || 40
   }
 
