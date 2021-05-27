@@ -43,6 +43,8 @@ class TypingEffectElement extends HTMLElement {
   get prefersReducedMotion(): boolean {
     if (this.getAttribute('data-reduced-motion') === 'false') {
       return false
+    } else if (this.getAttribute('data-reduced-motion') === 'true') {
+      return true
     } else {
       return window.matchMedia('(prefers-reduced-motion)').matches
     }

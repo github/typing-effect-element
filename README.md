@@ -23,13 +23,31 @@ import '@github/typing-effect-element'
 
 ## Accessibility
 
-This component detects whether `prefers-reduced-motion` is set on the window
+This component detects whether `prefers-reduced-motion` is set on the window:
 
 ```js
 window.matchMedia('(prefers-reduced-motion)').matches === true
 ```
 
 If this evaluates to true, any content lines provided will be appended immediately rather than being typed out with a delay.
+
+The data attribute `data-reduced-motion` can be used to override the window media value.
+
+```html
+<typing-effect
+  data-lines='["Welcome to GitHub!", "Let’s begin the adventure"]'
+  data-reduced-motion="true"> <!-- This will NOT animate -->
+  <span data-target="typing-effect.content"></span>
+  <span data-target="typing-effect.cursor">|</span>
+</typing-effect>
+
+<typing-effect
+  data-lines='["Welcome to GitHub!", "Let’s begin the adventure"]'
+  data-reduced-motion="false"> <!-- This WILL animate -->
+  <span data-target="typing-effect.content"></span>
+  <span data-target="typing-effect.cursor">|</span>
+</typing-effect>
+```
 
 ## Browser support
 
