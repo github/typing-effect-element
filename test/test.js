@@ -79,6 +79,21 @@ describe('typing-effect', function () {
   })
 
   describe('a11y considerations', function () {
+    let realMatchMedia
+    before(() => {
+      realMatchMedia = window.matchMedia
+      window.matchMedia = mediaString => {
+        if (mediaString === '(prefers-reduced-motion)') {
+          return {matches: true}
+        }
+        return realMatchMedia(mediaString)
+      }
+    })
+
+    after(() => {
+      window.matchMedia = realMatchMedia
+    })
+
     it('sets delay to 0 when media query matches (prefers-reduced-motion)', function () {
       const typingEffectElement = document.createElement('typing-effect')
       document.body.append(typingEffectElement)
