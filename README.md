@@ -5,7 +5,7 @@ A custom element that shows text as if it were being typed
 ## Installation
 
 ```
-npm install @github/typing-effect-element
+$ npm install @github/typing-effect-element
 ```
 
 ## Usage
