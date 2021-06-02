@@ -40,7 +40,7 @@ class TypingEffectElement extends HTMLElement {
   }
 
   get characterDelay(): number {
-    return Math.max(Math.min(0, Math.floor(Number(this.getAttribute('data-character-delay'))), 2_147_483_647)) || 40
+    return Math.max(0, Math.min(Math.floor(Number(this.getAttribute('data-character-delay'))), 2_147_483_647)) || 40
   }
 
   set characterDelay(value: number) {
@@ -51,7 +51,7 @@ class TypingEffectElement extends HTMLElement {
   }
 
   get lineDelay(): number {
-    return Math.max(Math.min(0, Math.floor(Number(this.getAttribute('data-line-delay'))), 2_147_483_647)) || 40
+    return Math.max(0, Math.min(Math.floor(Number(this.getAttribute('data-line-delay'))), 2_147_483_647)) || 40
   }
 
   set lineDelay(value: number) {
