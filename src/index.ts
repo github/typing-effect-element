@@ -11,8 +11,7 @@ const loaded: Promise<unknown> = (function () {
 class TypingEffectElement extends HTMLElement {
   async connectedCallback(): Promise<void> {
     await loaded
-    if (this.content)
-      await typeLines(this.lines, this.content, this.characterDelay, this.lineDelay, this.prefersReducedMotion)
+    if (this.content) await typeLines(this.lines, this.content, this.characterDelay, this.lineDelay)
     if (this.cursor) this.cursor.hidden = true
     this.dispatchEvent(
       new CustomEvent('typing:complete', {
@@ -90,11 +89,10 @@ async function typeLines(
   lines: string[],
   contentElement: HTMLElement,
   characterDelay: number,
-  lineDelay: number,
-  reduceMotion: boolean
+  lineDelay: number
 ): Promise<void> {
   for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
-    if (reduceMotion) {
+    if (characterDelay === 0) {
       contentElement.append(lines[lineIndex])
     } else {
       for (const character of lines[lineIndex].split('')) {
@@ -103,7 +101,7 @@ async function typeLines(
       }
     }
 
-    await wait(lineDelay)
+    if (lineDelay !== 0) await wait(lineDelay)
     if (lineIndex < lines.length - 1) contentElement.append(document.createElement('br'))
   }
 }
