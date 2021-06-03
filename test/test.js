@@ -75,6 +75,19 @@ describe('typing-effect', function () {
       assert.equal(typingEffectElement.characterDelay, 40)
       assert.equal(typingEffectElement.lineDelay, 40)
     })
+
+    it('uses specified delay attributes instead of using defaults', function () {
+      const characterDelay = 20
+      const lineDelay = 20
+      document.body.innerHTML = `
+        <typing-effect data-character-delay="${characterDelay}" data-line-delay="${lineDelay}">
+        </typing-effect>
+      `
+      const typingEffectElement = document.querySelector('typing-effect')
+
+      assert.equal(typingEffectElement.characterDelay, characterDelay)
+      assert.equal(typingEffectElement.lineDelay, lineDelay)
+    })
   })
 })
 
