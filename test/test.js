@@ -68,6 +68,21 @@ describe('typing-effect', function () {
   })
 
   describe('delay attributes', function () {
+    let realMatchMedia
+    before(() => {
+      realMatchMedia = window.matchMedia
+      window.matchMedia = mediaString => {
+        if (mediaString === '(prefers-reduced-motion)') {
+          return {matches: false}
+        }
+        return realMatchMedia(mediaString)
+      }
+    })
+
+    after(() => {
+      window.matchMedia = realMatchMedia
+    })
+
     it('uses defaults when no delays specified', function () {
       const typingEffectElement = document.createElement('typing-effect')
       document.body.append(typingEffectElement)
@@ -87,6 +102,32 @@ describe('typing-effect', function () {
 
       assert.equal(typingEffectElement.characterDelay, characterDelay)
       assert.equal(typingEffectElement.lineDelay, lineDelay)
+    })
+  })
+
+  describe('a11y considerations', function () {
+    let realMatchMedia
+    before(() => {
+      realMatchMedia = window.matchMedia
+      window.matchMedia = mediaString => {
+        if (mediaString === '(prefers-reduced-motion)') {
+          return {matches: true}
+        }
+        return realMatchMedia(mediaString)
+      }
+    })
+
+    after(() => {
+      window.matchMedia = realMatchMedia
+    })
+
+    it('sets delay to 0 when media query matches (prefers-reduced-motion)', function () {
+      const typingEffectElement = document.createElement('typing-effect')
+      document.body.append(typingEffectElement)
+
+      assert.equal(window.matchMedia('(prefers-reduced-motion)').matches, true)
+      assert.equal(typingEffectElement.characterDelay, 0)
+      assert.equal(typingEffectElement.lineDelay, 0)
     })
   })
 })

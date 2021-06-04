@@ -39,7 +39,14 @@ class TypingEffectElement extends HTMLElement {
     }
   }
 
+  get prefersReducedMotion(): boolean {
+    return window.matchMedia('(prefers-reduced-motion)').matches
+  }
+
   get characterDelay(): number {
+    if (this.prefersReducedMotion) {
+      return 0
+    }
     return Math.max(0, Math.min(Math.floor(Number(this.getAttribute('data-character-delay'))), 2_147_483_647)) || 40
   }
 
@@ -51,6 +58,9 @@ class TypingEffectElement extends HTMLElement {
   }
 
   get lineDelay(): number {
+    if (this.prefersReducedMotion) {
+      return 0
+    }
     return Math.max(0, Math.min(Math.floor(Number(this.getAttribute('data-line-delay'))), 2_147_483_647)) || 40
   }
 
@@ -82,12 +92,16 @@ async function typeLines(
   lineDelay: number
 ): Promise<void> {
   for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
-    for (const character of lines[lineIndex].split('')) {
-      await wait(characterDelay)
-      contentElement.innerHTML += character
+    if (characterDelay === 0) {
+      contentElement.append(lines[lineIndex])
+    } else {
+      for (const character of lines[lineIndex].split('')) {
+        await wait(characterDelay)
+        contentElement.innerHTML += character
+      }
     }
 
-    await wait(lineDelay)
+    if (lineDelay !== 0) await wait(lineDelay)
     if (lineIndex < lines.length - 1) contentElement.append(document.createElement('br'))
   }
 }
