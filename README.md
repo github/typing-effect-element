@@ -21,6 +21,16 @@ import '@github/typing-effect-element'
 </typing-effect>
 ```
 
+## Accessibility
+
+This component detects whether `prefers-reduced-motion` is set on the window:
+
+```js
+window.matchMedia('(prefers-reduced-motion)').matches === true
+```
+
+If this evaluates to true, any content lines provided will be appended immediately rather than being typed out with a delay.
+
 ## Browser support
 
 Browsers without native [custom element support][support] require a [polyfill][].
