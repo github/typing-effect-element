@@ -35,5 +35,8 @@
     "karma-mocha-reporter": "^2.2.5",
     "mocha": "^11.7.5",
     "typescript": "^4.2.4"
+  },
+  "overrides": {
+    "@types/ws": "8.5.4"
   }
 }
