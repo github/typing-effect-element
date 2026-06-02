@@ -1,4 +1,4 @@
-process.env.CHROME_BIN = require('chromium').path
+process.env.CHROME_BIN = process.env.CHROME_BIN || require('chromium').path
 
 module.exports = function (config) {
   config.set({
@@ -15,7 +15,7 @@ module.exports = function (config) {
     customLaunchers: {
       ChromeHeadlessNoSandbox: {
         base: 'ChromeHeadless',
-        flags: ['--no-sandbox']
+        flags: ['--no-sandbox', '--disable-dev-shm-usage']
       }
     },
     autoWatch: false,
