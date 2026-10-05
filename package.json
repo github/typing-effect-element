@@ -38,6 +38,8 @@
   },
   "overrides": {
     "@types/ws": "8.5.4",
-    "tmp": "^0.2.6"
+    "chromium": {
+      "tmp": "^0.2.6"
+    }
   }
 }
