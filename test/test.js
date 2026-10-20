@@ -91,6 +91,28 @@ describe('typing-effect', function () {
       assert.equal(typingEffectElement.lineDelay, 40)
     })
 
+    it('preserves zero delay attributes and property values', function () {
+      const element = document.createElement('typing-effect')
+      element.setAttribute('data-character-delay', '0')
+      element.setAttribute('data-line-delay', '0')
+      assert.strictEqual(element.characterDelay, 0)
+      assert.strictEqual(element.lineDelay, 0)
+
+      element.characterDelay = 20
+      element.lineDelay = 20
+      element.characterDelay = 0
+      element.lineDelay = 0
+      assert.strictEqual(element.characterDelay, 0)
+      assert.strictEqual(element.lineDelay, 0)
+
+      for (const value of ['', ' ', '\n', '0.5']) {
+        element.setAttribute('data-character-delay', value)
+        element.setAttribute('data-line-delay', value)
+        assert.strictEqual(element.characterDelay, 40)
+        assert.strictEqual(element.lineDelay, 40)
+      }
+    })
+
     it('uses specified delay attributes instead of using defaults', function () {
       const characterDelay = 20
       const lineDelay = 20
