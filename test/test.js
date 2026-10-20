@@ -105,10 +105,12 @@ describe('typing-effect', function () {
       assert.strictEqual(element.characterDelay, 0)
       assert.strictEqual(element.lineDelay, 0)
 
-      element.setAttribute('data-character-delay', '')
-      element.setAttribute('data-line-delay', '')
-      assert.strictEqual(element.characterDelay, 40)
-      assert.strictEqual(element.lineDelay, 40)
+      for (const value of ['', ' ', '\n', '0.5']) {
+        element.setAttribute('data-character-delay', value)
+        element.setAttribute('data-line-delay', value)
+        assert.strictEqual(element.characterDelay, 40)
+        assert.strictEqual(element.lineDelay, 40)
+      }
     })
 
     it('uses specified delay attributes instead of using defaults', function () {

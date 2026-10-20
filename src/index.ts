@@ -47,7 +47,7 @@ class TypingEffectElement extends HTMLElement {
     if (this.prefersReducedMotion) {
       return 0
     }
-    const delay = Number(this.getAttribute('data-character-delay') || 40)
+    const delay = Number(this.getAttribute('data-character-delay')?.trim() || 40)
     if (delay === 0) return 0
     return Math.max(0, Math.min(Math.floor(delay), 2_147_483_647)) || 40
   }
@@ -63,7 +63,7 @@ class TypingEffectElement extends HTMLElement {
     if (this.prefersReducedMotion) {
       return 0
     }
-    const delay = Number(this.getAttribute('data-line-delay') || 40)
+    const delay = Number(this.getAttribute('data-line-delay')?.trim() || 40)
     if (delay === 0) return 0
     return Math.max(0, Math.min(Math.floor(delay), 2_147_483_647)) || 40
   }
